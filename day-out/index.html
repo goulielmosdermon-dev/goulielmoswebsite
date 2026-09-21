@@ -27,7 +27,7 @@
       <iframe src="https://player.vimeo.com/video/1135617061?controls=0&title=0&byline=0&portrait=0&dnt=1&h=98d53dc72b" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       <div class="hit"></div>
     </div>
-    <div class="controls">
+    <div class="controls" data-film="day-out">
       <button class="pp">play</button>
       <div class="bar"><div class="fill"></div></div>
       <span class="time">0:00</span>
@@ -37,6 +37,7 @@
     <p class="desc">Seventeen-year-old Michal hatches a bold plan to break his grandfather out of the hospital and fulfill his dream of spending his final days at home. Their unforgettable journey becomes a celebration of love and life.</p>
     <a class="imdb" href="https://www.imdb.com/title/tt32284355/" target="_blank" rel="noopener"><b>IMDB</b></a>
   </main>
+  <script src="/watch-stats.js"></script>
   <script src="https://player.vimeo.com/api/player.js"></script>
   <script>
     const wrap=document.querySelector('.player'), btn=document.querySelector('.pp'),
@@ -52,9 +53,12 @@
     btn.addEventListener('click',toggle);
     wrap.querySelector('.hit').addEventListener('click',toggle);
     player.on('play',()=>{playing=true;btn.textContent='pause';wrap.classList.add('on');});
+    player.on('seeked',d=>{last=d.seconds;});
     player.on('pause',()=>{playing=false;btn.textContent='play';});
-    player.on('ended',()=>{playing=false;btn.textContent='play';});
-    player.on('timeupdate',d=>{fill.style.width=(d.percent*100)+'%';time.textContent=fmt(d.seconds)+' / '+fmt(d.duration);});
+    let counted=false, played=0, last=null, dur=0;
+    const done=()=>{ if(!counted && dur && played>=dur*0.8){ counted=true; window.recordWatched&&window.recordWatched('day-out'); } };
+    player.on('ended',()=>{playing=false;btn.textContent='play';done();});
+    player.on('timeupdate',d=>{dur=d.duration;if(last!==null){const dt=d.seconds-last;if(dt>0&&dt<2)played+=dt;}last=d.seconds;if(d.percent>=0.99)done();fill.style.width=(d.percent*100)+'%';time.textContent=fmt(d.seconds)+' / '+fmt(d.duration);});
     bar.addEventListener('click',async e=>{
       const r=bar.getBoundingClientRect(), d=await player.getDuration();
       player.setCurrentTime(Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*d);

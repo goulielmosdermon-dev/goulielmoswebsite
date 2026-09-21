@@ -94,3 +94,7 @@ b, strong { font-family: "Neco", sans-serif; font-weight: 700; font-size: 15px; 
 .fs-icon { display: none; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .fs-icon .i-close, .fs.is-on .fs-icon .i-open { display: none; }
 .fs.is-on .fs-icon .i-close { display: inline; }
+
+/* owner-only watch counts */
+.watched { margin-left: 10px; font-size: 13px; color: #999; white-space: nowrap; }
+.controls .watched { margin-left: 0; order: 10; }

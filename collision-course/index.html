@@ -27,7 +27,7 @@
       <iframe src="https://player.vimeo.com/video/945691757?controls=0&title=0&byline=0&portrait=0&dnt=1&h=ae618c0f2d" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       <div class="hit"></div>
     </div>
-    <div class="controls">
+    <div class="controls" data-film="collision-course">
       <button class="pp">play</button>
       <div class="bar"><div class="fill"></div></div>
       <span class="time">0:00</span>
@@ -36,6 +36,7 @@
     </div>
     <p class="desc">An mosaic of interrelated characters connected by a mysterious circumstance that happened earlier that day.</p>
   </main>
+  <script src="/watch-stats.js"></script>
   <script src="https://player.vimeo.com/api/player.js"></script>
   <script>
     const wrap=document.querySelector('.player'), btn=document.querySelector('.pp'),
@@ -51,9 +52,12 @@
     btn.addEventListener('click',toggle);
     wrap.querySelector('.hit').addEventListener('click',toggle);
     player.on('play',()=>{playing=true;btn.textContent='pause';wrap.classList.add('on');});
+    player.on('seeked',d=>{last=d.seconds;});
     player.on('pause',()=>{playing=false;btn.textContent='play';});
-    player.on('ended',()=>{playing=false;btn.textContent='play';});
-    player.on('timeupdate',d=>{fill.style.width=(d.percent*100)+'%';time.textContent=fmt(d.seconds)+' / '+fmt(d.duration);});
+    let counted=false, played=0, last=null, dur=0;
+    const done=()=>{ if(!counted && dur && played>=dur*0.8){ counted=true; window.recordWatched&&window.recordWatched('collision-course'); } };
+    player.on('ended',()=>{playing=false;btn.textContent='play';done();});
+    player.on('timeupdate',d=>{dur=d.duration;if(last!==null){const dt=d.seconds-last;if(dt>0&&dt<2)played+=dt;}last=d.seconds;if(d.percent>=0.99)done();fill.style.width=(d.percent*100)+'%';time.textContent=fmt(d.seconds)+' / '+fmt(d.duration);});
     bar.addEventListener('click',async e=>{
       const r=bar.getBoundingClientRect(), d=await player.getDuration();
       player.setCurrentTime(Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*d);
