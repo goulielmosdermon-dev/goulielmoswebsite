@@ -85,3 +85,7 @@ b, strong { font-family: "Neco", sans-serif; font-weight: 700; font-size: 15px; 
   .stage:fullscreen, .stage:-webkit-full-screen { padding: 12px; }
 }
 .player.native .hit { display: none; }
+
+/* home */
+.hero { display: block; height: calc(100vh - 116px); height: calc(100svh - 116px); width: auto; max-width: 100%; object-fit: cover; }
+@media (max-width: 800px) { .hero { width: 100%; height: auto; } }
