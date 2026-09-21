@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>last sunny day — Goulielmos Dermon</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="sidebar">
+    <a class="name" href="/">Goulielmos Dermon</a>
+    <nav class="menu">
+      <a href="/film/" class="active">FILM <span class="sub">/ last sunny day</span></a>
+      <a href="/bio/">bio</a>
+      <a href="/contact/">contact</a>
+    </nav>
+    <a class="next" href="/collision-course/">play <span>&ldquo;collision course&rdquo;</span> &rarr;</a>
+  </header>
+  <main class="content filmpage">
+    <h1>last sunny day</h1>
+    <div class="stage">
+    <div class="player">
+      <img class="poster" src="/images/last-sunny-day.png" alt="">
+      <iframe src="https://player.vimeo.com/video/868455796?controls=0&title=0&byline=0&portrait=0&dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <div class="hit"></div>
+    </div>
+    <div class="controls">
+      <button class="pp">play</button>
+      <div class="bar"><div class="fill"></div></div>
+      <span class="time">0:00</span>
+      <button class="fs">fullscreen</button>
+    </div>
+    </div>
+    <p class="desc">Oliver, growing up in the Sicilian gangster world of the 90s, accompanied by his best friend Georgio, murders people in exchange for money. Suddenly, Oliver learns he has six months to live. After the news, his conscience awakens and starts contemplating his last time.</p>
+  </main>
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  <script>
+    const wrap=document.querySelector('.player'), btn=document.querySelector('.pp'),
+          bar=document.querySelector('.bar'), fill=document.querySelector('.fill'),
+          time=document.querySelector('.time');
+    const player=new Vimeo.Player(wrap.querySelector('iframe'));
+    let playing=false;
+    const fmt=s=>{s=Math.floor(s||0);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
+    function toggle(){ playing ? player.pause() : player.play(); }
+    btn.addEventListener('click',toggle);
+    wrap.querySelector('.hit').addEventListener('click',toggle);
+    player.on('play',()=>{playing=true;btn.textContent='pause';wrap.classList.add('on');});
+    player.on('pause',()=>{playing=false;btn.textContent='play';});
+    player.on('ended',()=>{playing=false;btn.textContent='play';});
+    player.on('timeupdate',d=>{fill.style.width=(d.percent*100)+'%';time.textContent=fmt(d.seconds)+' / '+fmt(d.duration);});
+    bar.addEventListener('click',async e=>{
+      const r=bar.getBoundingClientRect(), d=await player.getDuration();
+      player.setCurrentTime(Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*d);
+    });
+    const stage=document.querySelector('.stage'), fs=document.querySelector('.fs');
+    fs.addEventListener('click',()=>{
+      if(document.fullscreenElement||document.webkitFullscreenElement){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+      else if(stage.requestFullscreen){stage.requestFullscreen();}
+      else if(stage.webkitRequestFullscreen){stage.webkitRequestFullscreen();}
+      else{player.requestFullscreen();}
+    });
+    const fsChange=()=>{fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'exit fullscreen':'fullscreen';};
+    document.addEventListener('fullscreenchange',fsChange);
+    document.addEventListener('webkitfullscreenchange',fsChange);
+    document.addEventListener('keydown',e=>{if(e.key==='f')fs.click();});
+    document.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();toggle();}});
+  </script>
+</body>
+</html>

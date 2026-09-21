@@ -1,0 +1,71 @@
+@font-face { font-family: "Sentient"; src: url("fonts/Sentient-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Neco"; src: url("fonts/Neco-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+[hidden] { display: none !important; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #fff; color: #333; font-family: "Sentient", Georgia, serif; font-size: 17px; line-height: 24px; }
+a { color: inherit; text-decoration: none; }
+
+.sidebar { position: fixed; top: 0; left: 0; padding: 58px 24px; }
+.name { display: block; margin-bottom: 42px; }
+.menu { display: flex; flex-direction: column; }
+.menu a:hover { opacity: .6; }
+.menu a.active { font-family: "Neco", sans-serif; font-weight: 700; text-transform: uppercase; font-size: 15px; }
+
+/* content column */
+.content { margin-left: 30%; padding: 58px 40px 80px 0; max-width: 1100px; }
+.text { padding-top: 226px; max-width: 900px; }
+.text p { margin-bottom: 24px; }
+b, strong { font-family: "Neco", sans-serif; font-weight: 700; font-size: 15px; letter-spacing: .01em; }
+
+/* contact */
+.contact h2 { font-weight: 400; font-size: 17px; margin: 36px 0 6px; }
+.contact a, .contact b { display: block; }
+.contact a:hover { opacity: .6; }
+.contact .gap { margin-top: 18px; }
+
+/* films grid */
+.films { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 24px; }
+.tile { display: block; }
+.tile img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; transition: opacity .2s; }
+.tile:hover img { opacity: .8; }
+.tile .title { display: block; margin-top: 8px; }
+
+/* lightbox */
+.lightbox { position: fixed; inset: 0; background: rgba(255,255,255,.97); display: flex; align-items: center; justify-content: center; z-index: 10; }
+.lightbox .frame { width: min(90vw, 160vh); aspect-ratio: 16/9; }
+.lightbox iframe { width: 100%; height: 100%; border: 0; }
+.lightbox .close { position: absolute; top: 24px; right: 24px; background: none; border: 0; font: inherit; color: inherit; cursor: pointer; }
+
+@media (max-width: 800px) {
+  .sidebar { position: relative; padding-bottom: 24px; }
+  .content, .text { margin-left: 0; padding: 0 24px 60px; }
+  .films { grid-template-columns: 1fr; }
+}
+
+/* film page */
+.next { display: block; margin-top: 96px; white-space: nowrap; }
+.next:hover { opacity: .6; }
+.menu a.active .sub { font-family: "Sentient", Georgia, serif; font-weight: 400; text-transform: none; font-size: 17px; }
+.filmpage h1 { font-family: "Neco", sans-serif; font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: .01em; margin-bottom: 16px; }
+.player { position: relative; aspect-ratio: 16/9; background: #000; overflow: hidden; }
+.player iframe, .player .poster, .player .hit { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.player .poster { object-fit: cover; z-index: 1; transition: opacity .4s; pointer-events: none; }
+.player.on .poster { opacity: 0; }
+.player .hit { z-index: 2; cursor: pointer; }
+.controls { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+.pp { background: none; border: 0; font: inherit; color: inherit; cursor: pointer; width: 48px; text-align: left; padding: 0; }
+.pp:hover { opacity: .6; }
+.bar { flex: 1; height: 16px; cursor: pointer; position: relative; }
+.bar::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 2px; background: #ddd; }
+.fill { position: absolute; left: 0; top: 7px; height: 2px; width: 0; background: #333; }
+.time { font-size: 15px; font-variant-numeric: tabular-nums; min-width: 90px; text-align: right; }
+.desc { margin-top: 32px; max-width: 700px; }
+.imdb { display: inline-block; margin-top: 16px; } .imdb:hover { opacity: .6; }
+.fs { background: none; border: 0; font: inherit; color: inherit; cursor: pointer; padding: 0; white-space: nowrap; }
+.fs:hover { opacity: .6; }
+.stage:fullscreen { background: #000; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 24px 40px; }
+.stage:fullscreen .player { width: 100%; max-height: calc(100vh - 90px); margin: 0 auto; aspect-ratio: 16/9; height: auto; max-width: calc((100vh - 90px) * 16 / 9); }
+.stage:fullscreen .bar::before { background: #555; }
+.stage:fullscreen .fill { background: #fff; }
+.stage:-webkit-full-screen { background: #000; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 24px 40px; width: 100%; height: 100%; }
