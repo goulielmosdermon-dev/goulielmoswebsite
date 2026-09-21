@@ -23,7 +23,7 @@
     <h1>day out</h1>
     <div class="stage">
     <div class="player">
-      <img class="poster" src="/images/day-out-1600.webp" srcset="/images/day-out-800.webp 800w, /images/day-out-1600.webp 1600w" sizes="(max-width: 800px) 100vw, 70vw" fetchpriority="high" alt="">
+      <img class="poster" src="/images/day-out-v2-1600.webp" srcset="/images/day-out-v2-800.webp 800w, /images/day-out-v2-1600.webp 1600w" sizes="(max-width: 800px) 100vw, 70vw" fetchpriority="high" alt="">
       <iframe src="https://player.vimeo.com/video/1135617061?controls=0&title=0&byline=0&portrait=0&dnt=1&h=98d53dc72b" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       <div class="hit"></div>
     </div>
@@ -31,7 +31,7 @@
       <button class="pp">play</button>
       <div class="bar"><div class="fill"></div></div>
       <span class="time">0:00</span>
-      <button class="fs">fullscreen</button>
+      <button class="fs" aria-label="Fullscreen"><span class="fs-label">fullscreen</span><svg class="fs-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="i-open" d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/><path class="i-close" d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5"/></svg></button>
     </div>
     </div>
     <p class="desc">Seventeen-year-old Michal hatches a bold plan to break his grandfather out of the hospital and fulfill his dream of spending his final days at home. Their unforgettable journey becomes a celebration of love and life.</p>
@@ -66,7 +66,7 @@
       else if(stage.webkitRequestFullscreen){stage.webkitRequestFullscreen();}
       else{player.requestFullscreen();}
     });
-    const fsChange=()=>{fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'exit fullscreen':'fullscreen';};
+    const fsChange=()=>{const on=!!(document.fullscreenElement||document.webkitFullscreenElement);fs.classList.toggle('is-on',on);fs.querySelector('.fs-label').textContent=on?'exit fullscreen':'fullscreen';};
     document.addEventListener('fullscreenchange',fsChange);
     document.addEventListener('webkitfullscreenchange',fsChange);
     document.addEventListener('keydown',e=>{if(e.key==='f')fs.click();});

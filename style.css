@@ -79,8 +79,9 @@ b, strong { font-family: "Neco", sans-serif; font-weight: 700; font-size: 15px; 
   .controls { gap: 12px; }
   .pp { width: 44px; }
   .time { min-width: 0; font-size: 13px; }
-  .fs { font-size: 0; width: 24px; height: 24px; position: relative; }
-  .fs::after { content: ""; position: absolute; inset: 5px; border: 1.5px solid currentColor; border-radius: 1px; }
+  .fs { width: 32px; height: 32px; margin-right: -6px; display: flex; align-items: center; justify-content: center; }
+  .fs .fs-label { display: none; }
+  .fs .fs-icon { display: block; }
   .desc { margin-top: 24px; }
   .stage:fullscreen, .stage:-webkit-full-screen { padding: 12px; }
 }
@@ -89,3 +90,7 @@ b, strong { font-family: "Neco", sans-serif; font-weight: 700; font-size: 15px; 
 /* home */
 .hero { display: block; height: calc(100vh - 116px); height: calc(100svh - 116px); width: auto; max-width: 100%; object-fit: cover; }
 @media (max-width: 800px) { .hero { width: 100%; height: auto; } }
+
+.fs-icon { display: none; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.fs-icon .i-close, .fs.is-on .fs-icon .i-open { display: none; }
+.fs.is-on .fs-icon .i-close { display: inline; }

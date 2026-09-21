@@ -31,7 +31,7 @@
       <button class="pp">play</button>
       <div class="bar"><div class="fill"></div></div>
       <span class="time">0:00</span>
-      <button class="fs">fullscreen</button>
+      <button class="fs" aria-label="Fullscreen"><span class="fs-label">fullscreen</span><svg class="fs-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="i-open" d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/><path class="i-close" d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5"/></svg></button>
     </div>
     </div>
     <p class="desc">An mosaic of interrelated characters connected by a mysterious circumstance that happened earlier that day.</p>
@@ -65,7 +65,7 @@
       else if(stage.webkitRequestFullscreen){stage.webkitRequestFullscreen();}
       else{player.requestFullscreen();}
     });
-    const fsChange=()=>{fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'exit fullscreen':'fullscreen';};
+    const fsChange=()=>{const on=!!(document.fullscreenElement||document.webkitFullscreenElement);fs.classList.toggle('is-on',on);fs.querySelector('.fs-label').textContent=on?'exit fullscreen':'fullscreen';};
     document.addEventListener('fullscreenchange',fsChange);
     document.addEventListener('webkitfullscreenchange',fsChange);
     document.addEventListener('keydown',e=>{if(e.key==='f')fs.click();});
