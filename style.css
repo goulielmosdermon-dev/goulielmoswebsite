@@ -28,7 +28,7 @@ b, strong { font-family: "Neco", sans-serif; font-weight: 700; font-size: 15px; 
 
 /* films grid — used on mobile */
 .films { display: none; }
-.tile { display: block; }
+.tile { display: block; position: relative; }
 .tile img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; transition: opacity .2s; }
 .tile:hover img { opacity: .8; }
 .tile .title { display: block; margin-top: 8px; }
@@ -101,6 +101,14 @@ b, strong { font-family: "Neco", sans-serif; font-weight: 700; font-size: 15px; 
 .player .poster { object-fit: cover; z-index: 1; transition: opacity .4s; pointer-events: none; }
 .player.on .poster { opacity: 0; }
 .player .hit { z-index: 2; cursor: pointer; }
+.film-cursor { display: none; position: absolute; align-items: center; gap: 8px; color: #fff; font-size: 20px; line-height: 1; white-space: nowrap; pointer-events: none; transform: translate(-50%, -50%); text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+.film-cursor svg { width: 12px; height: 14px; fill: currentColor; filter: drop-shadow(0 1px 4px rgba(0,0,0,.4)); }
+@media (hover: hover) and (pointer: fine) {
+  .player:not(.on) .hit.cursor-visible { cursor: none; }
+  .player:not(.on) .hit.cursor-visible .film-cursor { display: flex; }
+  .shot.cursor-visible, .tile.cursor-visible img { cursor: none; }
+  .shot.is-on.cursor-visible .film-cursor, .tile.cursor-visible .film-cursor { display: flex; }
+}
 .controls { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
 .pp { background: none; border: 0; font: inherit; color: inherit; cursor: pointer; width: 48px; text-align: left; padding: 0; }
 .pp:hover { opacity: .6; }
