@@ -1,6 +1,6 @@
 document.querySelectorAll('.filmpage .player .hit, .film-preview .shot, .films .tile').forEach(hit => {
   const isPlayer = hit.classList.contains('hit');
-  const target = hit.matches('.tile') ? hit.querySelector('img') : hit;
+  const target = hit.matches('.tile') ? (hit.querySelector('img') || hit.querySelector('.commercial-tile-preview')) : hit;
 
   const cursor = document.createElement('span');
   cursor.className = 'film-cursor';

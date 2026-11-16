@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Commercial — Goulielmos Dermon</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="sidebar">
+    <a class="name" href="/">Goulielmos Dermon</a>
+    <nav class="menu">
+      <a href="/film/">film</a>
+      <a href="/commercial/" class="active">commercial</a>
+      <a href="/archives/">archives</a>
+      <a href="/bio/">bio</a>
+      <a href="/contact/">contact</a>
+    </nav>
+  </header>
+  <main class="content">
+    <div class="film-index">
+      <nav class="film-names">
+        <a href="/commercial/1/" data-id="commercial-1" data-commercial-title="1" class="is-on">commercial 01</a>
+        <a href="/commercial/2/" data-id="commercial-2" data-commercial-title="2">commercial 02</a>
+        <a href="/commercial/3/" data-id="commercial-3" data-commercial-title="3">commercial 03</a>
+        <a href="/commercial/4/" data-id="commercial-4" data-commercial-title="4">commercial 04</a>
+      </nav>
+      <div class="film-preview">
+        <a class="shot is-on" href="/commercial/1/" data-id="commercial-1"><iframe class="commercial-preview" data-commercial-preview="1" src="https://player.vimeo.com/video/1205498725?h=d55f52d3a6&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="commercial 01 preview" tabindex="-1" loading="lazy"></iframe></a>
+        <a class="shot" href="/commercial/2/" data-id="commercial-2"><iframe class="commercial-preview" data-commercial-preview="2" src="https://player.vimeo.com/video/1205498727?h=7287a04e93&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="commercial 02 preview" tabindex="-1" loading="lazy"></iframe></a>
+        <a class="shot" href="/commercial/3/" data-id="commercial-3"><iframe class="commercial-preview" data-commercial-preview="3" src="https://player.vimeo.com/video/1205498724?h=8790365b90&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="commercial 03 preview" tabindex="-1" loading="lazy"></iframe></a>
+        <a class="shot" href="/commercial/4/" data-id="commercial-4"><iframe class="commercial-preview" data-commercial-preview="4" src="https://player.vimeo.com/video/1205498726?h=18a9783e6a&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="commercial 04 preview" tabindex="-1" loading="lazy"></iframe></a>
+      </div>
+    </div>
+    <div class="films">
+      <a class="tile" href="/commercial/1/"><div class="commercial-tile-preview"><iframe class="commercial-preview" data-commercial-preview="1" src="https://player.vimeo.com/video/1205498725?h=d55f52d3a6&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="commercial 01 preview" tabindex="-1" loading="lazy"></iframe></div><span class="title" data-commercial-title="1">commercial 01</span></a>
+      <a class="tile" href="/commercial/2/"><div class="commercial-tile-preview"><iframe class="commercial-preview" data-commercial-preview="2" src="https://player.vimeo.com/video/1205498727?h=7287a04e93&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="commercial 02 preview" tabindex="-1" loading="lazy"></iframe></div><span class="title" data-commercial-title="2">commercial 02</span></a>
+      <a class="tile" href="/commercial/3/"><div class="commercial-tile-preview"><iframe class="commercial-preview" data-commercial-preview="3" src="https://player.vimeo.com/video/1205498724?h=8790365b90&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="commercial 03 preview" tabindex="-1" loading="lazy"></iframe></div><span class="title" data-commercial-title="3">commercial 03</span></a>
+      <a class="tile" href="/commercial/4/"><div class="commercial-tile-preview"><iframe class="commercial-preview" data-commercial-preview="4" src="https://player.vimeo.com/video/1205498726?h=18a9783e6a&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="commercial 04 preview" tabindex="-1" loading="lazy"></iframe></div><span class="title" data-commercial-title="4">commercial 04</span></a>
+    </div>
+  </main>
+  <script src="/film-cursor.js" defer></script>
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  <script src="/commercial.js" defer></script>
+  <script>
+    (function () {
+      var index = document.querySelector(".film-index");
+      if (!index) return;
+      var names = index.querySelectorAll(".film-names a");
+      var shots = index.querySelectorAll(".shot");
+      function show(id) {
+        names.forEach(function (a) { a.classList.toggle("is-on", a.dataset.id === id); });
+        shots.forEach(function (s) { s.classList.toggle("is-on", s.dataset.id === id); });
+      }
+      names.forEach(function (a) {
+        a.addEventListener("mouseenter", function () { show(a.dataset.id); });
+      });
+      index.addEventListener("mouseleave", function () { show("commercial-1"); });
+    })();
+  </script>
+</body>
+</html>
